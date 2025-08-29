@@ -1,1 +1,10 @@
-# dt
+- ukb-dt-m-001 # molecule
+- ukb-dt-c-001 # cell
+- ukb-dt-t-001 # tissue
+- ukb-dt-o-001 # organ
+- ukb-dt-s-001 # system
+- ukb-dt-a-001 # agent
+- ukb-dt-r-001 # relationship
+- ukb-dt-h-001 # household
+- ukb-dt-e-001 # enterprise
+- ukb-dt-p-001 # platform
