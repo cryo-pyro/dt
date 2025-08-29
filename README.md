@@ -6,5 +6,5 @@
 - ukb-dt-a-001 # agent
 - ukb-dt-r-001 # relationship
 - ukb-dt-h-001 # household
-- ukb-dt-e-001 # enterprise
+- [ukb-dt-e-001](https://github.com/abikesa/enterprise) # enterprise
 - ukb-dt-p-001 # platform
