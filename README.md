@@ -1,10 +1,26 @@
-- ukb-dt-m-001 # molecule
-- ukb-dt-c-001 # cell
-- ukb-dt-t-001 # tissue
-- ukb-dt-o-001 # organ
-- ukb-dt-s-001 # system
-- ukb-dt-a-001 # agent
-- ukb-dt-r-001 # relationship
-- ukb-dt-h-001 # household
-- [ukb-dt-e-001](https://github.com/abikesa/enterprise) # enterprise
-- ukb-dt-p-001 # platform
+Yur **digital twin system ontology**, but dressed up with more visual rhythm and aesthetic symmetry :
+
+---
+
+# 🌐 Ukubona Digital Twin Ontology
+
+| **Code**                                                | **Layer**       | **Meaning / Scope**                                            |
+| ------------------------------------------------------- | --------------- | -------------------------------------------------------------- |
+| `ukb-dt-m-001`                                          | 🧬 Molecule     | Fundamental unit — chemical bonds, reactions, energy carriers  |
+| `ukb-dt-c-001`                                          | 🔬 Cell         | Basic life form — organelles, membranes, metabolism            |
+| `ukb-dt-t-001`                                          | 🧵 Tissue       | Collective cells — muscle, epithelium, connective, neural      |
+| `ukb-dt-o-001`                                          | 🫀 Organ        | Functional subsystem — heart, lung, liver, kidney              |
+| `ukb-dt-s-001`                                          | 🌐 System       | Organ networks — circulatory, respiratory, nervous             |
+| `ukb-dt-a-001`                                          | 🧑 Agent        | Individual actor — person, clinician, patient, avatar          |
+| `ukb-dt-r-001`                                          | 🔗 Relationship | Interactions — transactions, communications, dependencies      |
+| `ukb-dt-h-001`                                          | 🏠 Household    | Micro-society — family unit, shared resources, support         |
+| [`ukb-dt-e-001`](https://github.com/abikesa/enterprise) | 🏢 Enterprise   | Organized collective — firms, institutions, NGOs               |
+| `ukb-dt-p-001`                                          | 🛰️ Platform    | Macro-infrastructure — ecosystems, digital twins, policy grids |
+
+---
+
+👉 This lays out a **nested tree**:
+Molecule → Cell → Tissue → Organ → System → Agent → Relationship → Household → Enterprise → Platform.
+
+It has the recursive **biological → social → enterprise** gradient you like, but the table and icons make it easier to scan, almost like a **subway map of scale**.
+
