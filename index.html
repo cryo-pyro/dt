@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Digital Twins Hierarchy</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #0f0f23 0%, #1a1a3e 50%, #2d1b69 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 900px;
+            width: 90%;
+            padding: 3rem 2rem;
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(20px);
+            border-radius: 24px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+        }
+
+        h1 {
+            text-align: center;
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 3rem;
+            background: linear-gradient(135deg, #ff6b6b, #4ecdc4, #45b7d1, #96ceb4);
+            background-size: 400% 400%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: gradientShift 6s ease-in-out infinite;
+            text-shadow: 0 0 30px rgba(255, 107, 107, 0.3);
+        }
+
+        @keyframes gradientShift {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+
+        .hierarchy {
+            display: grid;
+            gap: 1rem;
+        }
+
+        .level {
+            display: flex;
+            align-items: center;
+            padding: 1.5rem;
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 16px;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+            overflow: hidden;
+            backdrop-filter: blur(10px);
+        }
+
+        .level::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+            transition: left 0.6s;
+        }
+
+        .level:hover::before {
+            left: 100%;
+        }
+
+        .level:hover {
+            transform: translateX(10px) scale(1.02);
+            background: rgba(255, 255, 255, 0.08);
+            border-color: rgba(78, 205, 196, 0.4);
+            box-shadow: 0 15px 35px rgba(78, 205, 196, 0.2);
+        }
+
+        .level-number {
+            font-size: 1.8rem;
+            font-weight: 800;
+            min-width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            margin-right: 1.5rem;
+            box-shadow: 0 8px 16px rgba(102, 126, 234, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .level:nth-child(odd) .level-number {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            box-shadow: 0 8px 16px rgba(240, 147, 251, 0.3);
+        }
+
+        .level:nth-child(3n) .level-number {
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            box-shadow: 0 8px 16px rgba(79, 172, 254, 0.3);
+        }
+
+        .level-content {
+            flex: 1;
+        }
+
+        .level-code {
+            font-family: 'SF Mono', Consolas, monospace;
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #4ecdc4;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            display: inline-block;
+            padding: 0.3rem 0.8rem;
+            border-radius: 8px;
+            background: rgba(78, 205, 196, 0.1);
+            border: 1px solid rgba(78, 205, 196, 0.2);
+        }
+
+        .level-code:hover {
+            color: #fff;
+            background: rgba(78, 205, 196, 0.2);
+            border-color: rgba(78, 205, 196, 0.4);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(78, 205, 196, 0.3);
+        }
+
+        .level-description {
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.7);
+            margin-top: 0.5rem;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .connection-line {
+            width: 2px;
+            height: 20px;
+            background: linear-gradient(180deg, rgba(78, 205, 196, 0.6), rgba(78, 205, 196, 0.2));
+            margin: 0 auto;
+            opacity: 0.6;
+        }
+
+        .floating-particles {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: -1;
+        }
+
+        .particle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: rgba(78, 205, 196, 0.6);
+            border-radius: 50%;
+            animation: float 8s linear infinite;
+        }
+
+        @keyframes float {
+            0% {
+                transform: translateY(100vh) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-100px) rotate(360deg);
+                opacity: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="floating-particles"></div>
+        <h1>Digital Twins Hierarchy</h1>
+        
+        <div class="hierarchy">
+            <div class="level">
+                <div class="level-number">1</div>
+                <div class="level-content">
+                    <div class="level-code">ukb-dt-m-001</div>
+                    <div class="level-description">molecule</div>
+                </div>
+            </div>
+            
+            <div class="connection-line"></div>
+            
+            <div class="level">
+                <div class="level-number">2</div>
+                <div class="level-content">
+                    <div class="level-code">ukb-dt-c-001</div>
+                    <div class="level-description">cell</div>
+                </div>
+            </div>
+            
+            <div class="connection-line"></div>
+            
+            <div class="level">
+                <div class="level-number">3</div>
+                <div class="level-content">
+                    <div class="level-code">ukb-dt-t-001</div>
+                    <div class="level-description">tissue</div>
+                </div>
+            </div>
+            
+            <div class="connection-line"></div>
+            
+            <div class="level">
+                <div class="level-number">4</div>
+                <div class="level-content">
+                    <div class="level-code">ukb-dt-o-001</div>
+                    <div class="level-description">organ</div>
+                </div>
+            </div>
+            
+            <div class="connection-line"></div>
+            
+            <div class="level">
+                <div class="level-number">5</div>
+                <div class="level-content">
+                    <div class="level-code">ukb-dt-s-001</div>
+                    <div class="level-description">system</div>
+                </div>
+            </div>
+            
+            <div class="connection-line"></div>
+            
+            <div class="level">
+                <div class="level-number">6</div>
+                <div class="level-content">
+                    <div class="level-code">ukb-dt-a-001</div>
+                    <div class="level-description">agent</div>
+                </div>
+            </div>
+            
+            <div class="connection-line"></div>
+            
+            <div class="level">
+                <div class="level-number">7</div>
+                <div class="level-content">
+                    <div class="level-code">ukb-dt-r-001</div>
+                    <div class="level-description">relationship</div>
+                </div>
+            </div>
+            
+            <div class="connection-line"></div>
+            
+            <div class="level">
+                <div class="level-number">8</div>
+                <div class="level-content">
+                    <div class="level-code">ukb-dt-h-001</div>
+                    <div class="level-description">household</div>
+                </div>
+            </div>
+            
+            <div class="connection-line"></div>
+            
+            <div class="level">
+                <div class="level-number">9</div>
+                <div class="level-content">
+                    <a href="https://github.com/abikesa/enterprise" class="level-code" target="_blank">ukb-dt-e-001</a>
+                    <div class="level-description">enterprise</div>
+                </div>
+            </div>
+            
+            <div class="connection-line"></div>
+            
+            <div class="level">
+                <div class="level-number">10</div>
+                <div class="level-content">
+                    <div class="level-code">ukb-dt-p-001</div>
+                    <div class="level-description">platform</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Create floating particles
+        const particlesContainer = document.querySelector('.floating-particles');
+        
+        function createParticle() {
+            const particle = document.createElement('div');
+            particle.className = 'particle';
+            particle.style.left = Math.random() * 100 + '%';
+            particle.style.animationDelay = Math.random() * 8 + 's';
+            particle.style.animationDuration = (Math.random() * 3 + 5) + 's';
+            
+            particlesContainer.appendChild(particle);
+            
+            setTimeout(() => {
+                particle.remove();
+            }, 8000);
+        }
+
+        // Generate particles periodically
+        setInterval(createParticle, 800);
+        
+        // Initial particles
+        for (let i = 0; i < 5; i++) {
+            setTimeout(createParticle, i * 200);
+        }
+        
+        // Add subtle hover effects to connection lines
+        const levels = document.querySelectorAll('.level');
+        const connections = document.querySelectorAll('.connection-line');
+        
+        levels.forEach((level, index) => {
+            level.addEventListener('mouseenter', () => {
+                if (connections[index]) {
+                    connections[index].style.background = 'linear-gradient(180deg, rgba(78, 205, 196, 1), rgba(78, 205, 196, 0.4))';
+                    connections[index].style.transform = 'scaleX(3)';
+                }
+                if (connections[index - 1]) {
+                    connections[index - 1].style.background = 'linear-gradient(180deg, rgba(78, 205, 196, 1), rgba(78, 205, 196, 0.4))';
+                    connections[index - 1].style.transform = 'scaleX(3)';
+                }
+            });
+            
+            level.addEventListener('mouseleave', () => {
+                if (connections[index]) {
+                    connections[index].style.background = 'linear-gradient(180deg, rgba(78, 205, 196, 0.6), rgba(78, 205, 196, 0.2))';
+                    connections[index].style.transform = 'scaleX(1)';
+                }
+                if (connections[index - 1]) {
+                    connections[index - 1].style.background = 'linear-gradient(180deg, rgba(78, 205, 196, 0.6), rgba(78, 205, 196, 0.2))';
+                    connections[index - 1].style.transform = 'scaleX(1)';
+                }
+            });
+        });
+    </script>
+</body>
+</html>
