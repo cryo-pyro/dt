@@ -15,7 +15,7 @@ Your **digital twin system ontology**, but dressed up with more visual rhythm an
 | `ukb-dt-a-001`                                          | 🧑 Agent        | Individual actor — person, clinician, patient, avatar          |
 | `ukb-dt-r-001`                                          | 🔗 Relationship | Interactions — transactions, communications, dependencies      |
 | `ukb-dt-h-001`                                          | 🏠 Household    | Micro-society — family unit, shared resources, support         |
-| [`ukb-dt-e-001`](https://github.com/abikesa/enterprise) | 🏢 Enterprise   | Organized collective — firms, institutions, NGOs               |
+| [`ukb-dt-e-001`](https://ukb-dt.onrender.com/) | 🏢 Enterprise   | Organized collective — firms, institutions, NGOs               |
 | `ukb-dt-p-001`                                          | 🛰️ Platform    | Macro-infrastructure — ecosystems, digital twins, policy grids |
 
 ---
